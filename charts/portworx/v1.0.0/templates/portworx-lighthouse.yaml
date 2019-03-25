@@ -50,10 +50,8 @@ spec:
   ports:
     - name: http
       port: 80
-      nodePort: 32678
     - name: https
       port: 443
-      nodePort: 32679
   selector:
     tier: px-web-console
 ---
@@ -92,6 +90,7 @@ spec:
       - name: px-lighthouse
         image: "{{ template "px.getLighthouseImages" . }}/px-lighthouse:{{ required "A valid lighthouse image version is required" .Values.lighthouseVersion}}"
         imagePullPolicy: Always
+        args: [ "-kubernetes", "true" ]
         ports:
         - containerPort: 80
         - containerPort: 443
